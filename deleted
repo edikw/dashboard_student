@@ -1,0 +1,176 @@
+// cari tahu ada berapa generasi
+      // 1. looping arr nya
+      this.students.map((student, i)=>{
+        var ada = false;
+
+        // cek filtered kosong apa ga
+        if(filtered.length==0){
+          ada = false;
+        }else{
+          // 3. loop simpenan
+          filtered.map(f=>{
+            // 4. if x == y kembaliin, != masukin simpenan
+            if(student.generation != f || i == 0){ 
+              // 2. x masukin ke simpenan
+              ada = false;
+            }else{
+              ada = true;
+            }
+          });
+        }
+
+        if(!ada){
+          console.log('MASUKIN')
+          filtered.push(student.generation);
+        }else{
+          console.log('JANGAN MASUKIN')
+        }
+      });
+
+      console.log('TESTES', filtered);
+
+
+===============================================
+FUNGSI FILTER STUDENT YANG LAMA
+
+!!!MOUNTED!!!
+// GROUPING STUDENT BERDASARKAN GEN NYA
+      function groupingStudentByGen(){
+        // AMBIL  SEMUA GEN
+        self.jumlahGenDatabackend = self.gen(self.databackend);
+
+        // FILTER GEN ANGKA UNIK
+        self. genstudents =  self.filterGen(self.jumlahGenDatabackend);
+
+        // GROUPING
+        self.studentsByGen =  self.groupingGenstudent(
+          self.objectGen(self.genstudents), 
+          self.databackend
+        );
+        self.studentsByGen.map(group=>{
+          self.databackend.map(studentt=>{
+            if( studentt.generations == group.gen){
+              group.students.push(studentt)
+            }
+          })
+        })
+        console.log('STUDENTS BY GEN: ', self.studentsByGen);
+      } groupingStudentByGen();
+
+      // GROUPING SEMUA
+      this.groupingend = this.groupingLast(this.studentsByGen, this.databackendMajor);
+
+      console.log('GROUPING END: ', this.groupingend)
+
+      // GROUPING SEMUA ,ECEK ECEK TAPI BENERAN
+      this.groupingend.map(grup=>{
+        self.databackendMajor.map(major=>{
+          self.databackend.map(stud=>{
+            if(stud.major == major.id  && stud.generations == grup.gen){
+
+              var isunik = true;
+
+              grup.major.map((maj, i)=>{
+                if( i == 0){
+                  grup.major.push({
+                    major: major.name,
+                    students: stud
+                  });  
+                }
+                if(major.name == maj.major){
+                  console.log('tessss', major)
+                  isunik = false
+                }
+              })
+              if(isunik == true){
+                grup.major.push({
+                  major: major.name,
+                  students: stud
+                });
+              }else{
+                // grup.major.students.push(stud)
+              }
+              // grup.major.students.push(stud)
+            }
+          })
+        })
+      }) 
+
+
+!!!METHODS!!!
+// -------------------------------------------------------------------------
+      // BIKIN OBJECT GEN
+      objectGen(data){
+
+        var objectdata = [];
+
+        data.map(object=>{
+          if(object){
+            objectdata.push({
+              gen: object
+            })
+          }
+        })
+        console.log('object data gen :', objectdata)
+        return objectdata
+      },
+
+
+      // --------------------------------------------------------------------------
+      // GROUPING STUDENT BERDASARKAN GENYA
+      groupingGenstudent(genstudent, stud){
+
+        var groupStudent = [];
+
+        genstudent.map((generations)=>{
+          var x = false;
+          console.log('generations', generations)
+            stud.map(siswa=>{
+              if(siswa.generations != generations.gen){
+                x = false;
+              }else{
+                
+              }
+            })
+            if(!x){
+              groupStudent.push({
+                  gen: generations.gen,
+                  students: [] 
+                }) 
+            }
+        })
+        console.log('jadiiiiiiiii', groupStudent)
+        return groupStudent;
+      },
+
+      // -------------------------------------------------------------------------
+      // GROUPING MAJOR
+
+      groupingLast(gruping, major){
+        console.log('LAST: ', gruping, major)
+
+        var penampungan = []
+
+        gruping.map((data)=>{
+
+          var a = false; 
+          major.map(jurusan=>{
+            if(jurusan.id != data.students[0].major ){
+              a = false
+            }else {
+              // a = true; 
+            }
+          })
+          if(!a){
+            penampungan.push({
+              gen:data.gen,
+              major:[]
+            })
+            console.log('yesssss')
+          }
+        })
+        console.log('najjajal', penampungan)
+        return penampungan;
+      }
+
+FUNGSI FILTER STUDENT YANG LAMA =end
